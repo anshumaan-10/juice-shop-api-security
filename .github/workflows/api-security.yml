@@ -1,4 +1,5 @@
-name: Example pynt yml 
+name: Example pynt yml
+
 on: 
   workflow_dispatch:
     inputs: 
@@ -10,16 +11,29 @@ env:
   PYNT_ID: ${{ secrets.YOURPYNTID }}
 
 jobs:
- api-security:
-  runs-on: ubuntu-latest
+  api-security:
+    runs-on: ubuntu-latest
 
-  steps: 
-    - name: install pynt cli
-      run: | 
-        python3 -m pip install --upgrade pyntcli 
-    - name: get goat collection 
-      run: | 
-        curl https://raw.githubusercontent.com/pynt-io/pynt/main/goat_functional_tests/goat.postman_collection.json -o goat.json 
-    - name: run pynt with newman integration 
-      run: | 
-        pynt newman --collection goat.json --verbose
+    steps: 
+      # Step 1: Install pynt CLI
+      - name: Install pynt CLI
+        run: |
+          python3 -m pip install --upgrade pyntcli 
+
+      # Step 2: Get the goat collection
+      - name: Get goat collection
+        run: |
+          curl https://raw.githubusercontent.com/pynt-io/pynt/main/goat_functional_tests/goat.postman_collection.json -o goat.json 
+
+      # Step 3: Run pynt with newman integration and verbose output
+      - name: Run pynt with newman integration
+        run: |
+          pynt newman --collection goat.json --verbose --reporters json --reporter-json-export newman-report.json
+          
+      # Step 4: Upload the artifact (pynt output, e.g., report files)
+      - name: Upload API Security Test Reports
+        if: success()  # Only upload if the tests ran successfully
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-security-report
+          path: newman-report.json
