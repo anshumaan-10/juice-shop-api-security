@@ -319,3 +319,21 @@ OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & th
 2014-2023.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
+
+## Overview
+
+This repository contains project code and supporting assets. It is maintained actively with periodic updates.
+
+## Getting Started
+
+1. Clone this repository.
+2. Install dependencies as documented in the project files.
+3. Run/build using the project-specific commands.
+
+## Repository Structure
+
+Key source code, configuration, and documentation are organized by folders at the repository root.
+
+## Contribution Guidelines
+
+Please open an issue for major changes and submit focused pull requests with clear descriptions.
